@@ -53,7 +53,8 @@ ACGRRGCGAGCGAGSGAGCGCTATATATATATGCRGCTSGCTGTG
 1. What regular expression matches only the entire dinucleotide repeat (AT)5?  Enter your answer in the triple quotes directly below:
 
   **FIND**:
-  ```\AT\AT\AT\AT\AT
+  ```
+\AT\AT\AT\AT\AT
 
   ```
 
@@ -74,7 +75,8 @@ AT{5}
 4. How would you find all instances of `R` **or** `S` (degenerate base codes) in the same DNA sequence, above? Enter your answer in the triple quotes below:
 
   **FIND**:
-[R,S]  ```
+  ```
+[R,S]
 
   ```
 
@@ -148,11 +150,12 @@ $1, $2, $4, $3
   **FIND**:
   ```
 (\w*),(\w*),(\w*),(\w*)
+
   ```
 
   **REPLACE**:
   ```
-  $1| $2\t $3: $4
+$1| $2\t $3: $4
 
   ```
 
@@ -174,7 +177,7 @@ Here is a typical fastq-formatted header from an Illumina sequencer (this is a r
 
   **REPLACE**:
   ```
- $1
+$1
   ```
 
 1. The flowcell serial number is the 3rd set of characters that looks like `HA8VPADXX`.  How would you parse out **only the flowcell** from the header above?
@@ -186,7 +189,7 @@ Here is a typical fastq-formatted header from an Illumina sequencer (this is a r
 
   **REPLACE**:
   ```
-  $1
+$1
   ```
 
 1. Now, assume that the flowcell serial number stays in the same position (the third "column" of information separated by colons) but also assume that the flowcell value can take on different values. How would you parse out **only the flowcell** from the header above?
@@ -194,11 +197,13 @@ Here is a typical fastq-formatted header from an Illumina sequencer (this is a r
   **FIND**:
   ```
 @\w+:\d+:(\w+):.*
+
   ```
 
   **REPLACE**:
   ```
 $1
+
   ```
 
 ## Task Group 4
