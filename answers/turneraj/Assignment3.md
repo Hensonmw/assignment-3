@@ -54,15 +54,14 @@ ACGRRGCGAGCGAGSGAGCGCTATATATATATGCRGCTSGCTGTG
 
   **FIND**:
   ```
-\AT\AT\AT\AT\AT
-
+(AT){5}
   ```
 
 2. What is one alternative way to find this same sequence? Enter your answer in the triple quotes directly below:
 
   **FIND**:
   ```
-AT{5}
+(ATATATATAT)
   ```
 
 3. What is one more alternative way to find this same sequence? Enter your answer in the triple quotes below:
@@ -76,15 +75,14 @@ AT{5}
 
   **FIND**:
   ```
-[R,S]
-
+[RS]
   ```
 
 4. How would you find all instances of `R` **or** `S` (degenerate base codes) in the same DNA sequence, above, and **replace** them with the ambiguous base code `N`.  Place the search string in the `FIND` section below, and the replacement string in the `REPLACE` section below:
 
   **FIND**:
   ```
-[R,S]
+[RS]
   ```
 
   **REPLACE**:
@@ -116,19 +114,19 @@ spider,8,0,0
 
   **REPLACE**:
   ```
-$4, $3, $2, $1
+$4,$3,$2,$1
   ```
 
 2. You realize that only the last two columns of data are in the wrong order (3,4).  You want to reverse the order of only the last two columns (4,3).  How do you do that?
 
   **FIND**:
   ```
-(\w*),(\w*),(\w*),(\w*)
+(\w*)(\w*),(\w*)
   ```
 
   **REPLACE**:
   ```
-$1, $2, $4, $3
+$1 $3 $2
   ```
 
 
@@ -136,7 +134,7 @@ $1, $2, $4, $3
 
   **FIND**:
   ```
-(,)+
+(,)
   ```
 
   **REPLACE**:
@@ -150,29 +148,28 @@ $1, $2, $4, $3
   **FIND**:
   ```
 (\w*),(\w*),(\w*),(\w*)
-
   ```
 
   **REPLACE**:
   ```
-$1| $2\t $3: $4
-
+$1|$2\t$3:$4
   ```
 
 ## Task Group 3
 
-Here is a typical fastq-formatted header from an Illumina sequencer (this is a real header form a real sequencing run).  There's lots of info in these header strings, and you need to parse some of that information out of the header string (which always starts with `@` for fastq data versus `>` for fasta data):
+Here is a typical fastq-formatted header from an Illumina sequencer (this is a real header from a real sequencing run).  There's lots of info in these header strings, and you need to parse some of that information out of the header string (which always starts with `@` for fastq data versus `>` for fasta data):
 
 ```
 @SN1083:466:HA8VPADXX:1:1101:1997:2233 1:N:0:89
 ```
 
-### Task
-1. The read number is the first integer value that you see **following the space** in the header.  How would you parse out **only the lane number** from the header above?
+### Tasks
+
+1. The read number is the first integer value that you see **following the space** in the header.  How would you parse out **only the read number** from the header above?
 
   **FIND**:
   ```
-@\w+:\d+:\w+:\d+:\d+:\d+:\d+\s(\d):\w:\d:\d+
+\S*\s(\d)\S*
   ```
 
   **REPLACE**:
@@ -184,7 +181,7 @@ $1
 
   **FIND**:
   ```
-@\w+:\d+:(\w+):.*
+@\w*:\w*:(HA8VPADXX):.*
   ```
 
   **REPLACE**:
@@ -196,14 +193,12 @@ $1
 
   **FIND**:
   ```
-@\w+:\d+:(\w+):.*
-
+@\w*:\w*:(\w*):.*
   ```
 
   **REPLACE**:
   ```
 $1
-
   ```
 
 ## Task Group 4
@@ -223,12 +218,12 @@ AGGGTGAAGGTGGCGCAGAATGAGCTGGGACAGCAGATCCTAGCTGACTTCGAGGAAGCCT
 
   **FIND**:
   ```
-@(\w+):\d+:\w+:.*\r\n\w+\r\n\W\r\n\W\w*\W\w*
+@(\w*).*\r\n.*\r\n.*\r\n.*
   ```
 
   **REPLACE**:
   ```
-serial number $1
+$1
   ```
 
 2. This one is also pretty hard... How would you parse the fastq sequence to turn it into a fasta sequence where the resulting fasta sequence is of the form:
@@ -240,12 +235,12 @@ serial number $1
 
   **FIND**:
   ```
-@(\w+):\d+:(\w+):\d+:\d+:\d+:\d+\s(\d):\w:\d:\d+\r\n(\w+)\r\n\W\r\n\W\w*\W\w*
+@(\w*):(\w*):(\w*):.*\r\n.\S*\r\n.*\r\n\S*
   ```
 
   **REPLACE**:
   ```
->$1 | $2 | $3 \r\n$4
+
   ```
 
 ## Task Group 5
@@ -262,12 +257,12 @@ ACGRRGCGAGCGAGSGAGCGCTATATATATATGCRGCTSGCTGTG
 
   **FIND**:
   ```
-
+\w*CGCT(ATATATATAT)\w*
   ```
 
   **REPLACE**:
   ```
-
+$1
   ```
 
 You are finished.  You are probably also happy and/or angry or even, possibly, both.  The regex pain is complete for the time being.  Next time, we'll be doing this in [Python](http://python.org).
